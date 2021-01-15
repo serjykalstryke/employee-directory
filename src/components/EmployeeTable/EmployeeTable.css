@@ -1,3 +1,8 @@
-body {
-    background-color: #AEA79F
+th {
+	background: grey;
+}
+
+th:hover {
+	background: red;
+	color: blue;
 }

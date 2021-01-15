@@ -1,35 +1,39 @@
-import React, { useState } from 'react';
-import "./EmployeeTable.css"
+import React, { useContext } from "react";
+import Table from "react-bootstrap/Table";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Items from "../Items";
+import Context from "../../utils/Context";
 
-const EmployeeTable = props => {
-  return (
-    <div className="container">
-      <table className="table table-hover">
-        <thead>
-          <tr className="row">
-            <th className="col">Image</th>
-            <th className="col">Name</th>
-            <th className="col">Phone</th>
-            <th className="col">Email</th>
-            <th className="col">DOB</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.employees.map(employee => (
-            <tr key={employee.login.username} className="row">
-              <td className="col">
-              <img src={employee.picture.thumbnail} alt='Thumbnail' />
-            </td>
-            <td className="col">{`${employee.name.first} ${employee.name.last} `}</td>
-              <td className="col">{employee.phone}</td>
-              <td className="col">{employee.email}</td>
-              <td className="col">{employee.dob.date}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+import "./EmployeeTable.css";
+
+const EmployeeTable = () => {
+	const { sortName } = useContext(Context);
+
+	return (
+		<Container fluid className="employeeTable">
+			<Row>
+				<Table striped bordered hover responsive>
+					<thead>
+						<tr>
+							<th>Image</th>
+							<th className="button" onClick={() => sortName("first")}>
+								First Name&nbsp;<i className="fas fa-sort"></i>
+							</th>
+							<th className="button" onClick={() => sortName("last")}>
+								Last Name&nbsp;<i className="fas fa-sort"></i>
+							</th>
+							<th>Phone</th>
+							<th>Email</th>
+							<th>DOB</th>
+						</tr>
+					</thead>
+
+					<Items />
+				</Table>
+			</Row>
+		</Container>
+	);
 };
 
 export default EmployeeTable;

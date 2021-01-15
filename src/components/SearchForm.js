@@ -1,29 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from "react";
+import Form from "react-bootstrap/Form";
+import Context from "../utils/Context";
 
+const SearchForm = () => {
+	const { setSearchState } = useContext(Context);
 
-const SearchForm = ({ employees, filterEmployees }) => {
-  const [searchTerm, setSearchTerm ] = useState('');
-
-  useEffect(() => {
-    const filteredEmployees =
-      searchTerm === ''
-        ? employees
-        : employees.filter(
-            ({ name: { first, last } }) =>
-              first.toLowerCase().indexOf(searchTerm.toLowerCase()) >= 0          );
-
-    filterEmployees(filteredEmployees);
-  }, [searchTerm, employees]);
-
-  return (
-    <div id="header" className="input-group">
-      <div class="input-group-prepend">
-    <span class="input-group-text" id="">First or Last name</span>
-  </div>
-    <input className="form-control" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} /> 
-  
-    </div>
-  );
+	return (
+		<Form.Control
+			type="search"
+			placeholder="Search for name or phone"
+			onChange={(e) => setSearchState(e.target.value)}
+		/>
+	);
 };
 
 export default SearchForm;
